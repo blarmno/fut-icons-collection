@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUT ICONS — 001-144</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--gold:#c9a227;
+--bg:#0a0c10;
+--card-bg:#12151c;
+--border:#1e2330;
+--text:#e8e0cc;
+--muted:#7a7060;
+--color-base: #c0c0c0;
+--color-greats: #7df9ff;
+--color-immortals: #ffd700;
+--color-futties: #cd7f32;
+}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;margin:0;display:flex;flex-direction:column;min-height:100vh;}
+header{text-align:center;padding:60px 20px 20px}
+h1{font-family:'Bebas Neue';font-size:90px;color:var(--gold);margin:0}
+.sub{font-family:'Barlow Condensed';letter-spacing:.2em;color:var(--muted);margin-top:10px;text-transform:uppercase}
+
+.search-container{display:flex;justify-content:center;margin:20px auto;max-width:400px;padding:0 20px}
+#searchInput{width:100%;padding:12px 20px;border-radius:25px;border:1px solid var(--border);background:var(--card-bg);color:var(--text);font-family:'Barlow Condensed';font-size:16px;outline:none;transition:0.3s}
+#searchInput:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(201,162,39,0.2)}
+
+.cat-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:10px 30px 30px}
+.cat-btn{padding:8px 14px;border:1px solid var(--border);background:var(--card-bg);color:var(--muted);cursor:pointer;font-family:'Barlow Condensed';transition:0.3s}
+.cat-btn.active{border-color:var(--gold);color:var(--gold)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:20px;flex-grow:1}
+.card{background:var(--card-bg);border:2px solid var(--border);border-radius:8px;padding:10px;position:relative;text-align:center;transition:0.3s}
+.card:hover{transform: translateY(-5px); border-color: var(--gold);}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:6px;margin-bottom:8px;background:#1e2330}
+.card-name{font-family:'Barlow Condensed';font-weight:700;font-size:14px;text-transform:uppercase}
+.card-number{position:absolute;top:8px;left:10px;font-family:'Bebas Neue';font-size:22px;color:var(--gold);text-shadow:1px 1px 2px black;z-index:10}
+
+.card.base{border-color:var(--color-base)}
+.card.greats{border-color:var(--color-greats)}
+.card.immortals{border-color:var(--color-immortals)}
+.card.futties{border-color:var(--color-futties)}
+
+footer{text-align:center;padding:40px 20px;background:#050608;color:var(--muted);font-size:12px;font-family:'Barlow Condensed';letter-spacing:1px;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<header>
+<h1>FUT ICONS</h1>
+<div class="sub">Icon card game: Lista completa — As lendas do futebol mundial.</div>
+</header>
+
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="BUSCAR NOME OU NÚMERO..." onkeyup="filterCards()">
+</div>
+
+<div class="cat-bar">
+<button class="cat-btn active" onclick="setCat('all',this)">Todos</button>
+<button class="cat-btn" onclick="setCat('base',this)" style="border-bottom: 3px solid var(--color-base)">BASE (001-091)</button>
+<button class="cat-btn" onclick="setCat('greats',this)" style="border-bottom: 3px solid var(--color-greats)">GREATS (092-102)</button>
+<button class="cat-btn" onclick="setCat('immortals',this)" style="border-bottom: 3px solid var(--color-immortals)">IMMORTALS (103-123)</button>
+<button class="cat-btn" onclick="setCat('futties',this)" style="border-bottom: 3px solid var(--color-futties)">FUTTIES (124-144)</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+    Lista não oficial — baseada em FIFA Ultimate Team &nbsp;·&nbsp; Este site não é afiliado à EA Sports e tem o propósito apenas do colecionismo.
+</footer>
+
+<script>
+// CONFIGURAÇÃO DO GITHUB - ALTERE AQUI:
+const GITHUB_USER = "SEU_USUARIO"; 
+const REPO_NAME = "NOME_DO_REPOSITORIO";
+const IMAGE_PATH = "images"; // Nome da pasta onde estão as fotos
+
+const rawList = ["Ronaldo","Ronaldinho","Mia Hamm","Pelé","Ruud Gullit","Johan Cruyff","Eusébio","Zinedine Zidane","George Best","Roberto Carlos","Bobby Charlton","Jairzinho","Paolo Maldini","Lothar Matthäus","Thierry Henry","Ferenc Puskás","Samuel Eto'o","Eric Cantona","Franck Ribéry","Kaká","Kenny Dalglish","Emilio Butragueño","Philipp Lahm","Carlos Alberto","Rivaldo","Homare Sawa","Gerd Müller","Rio Ferdinand","Fernando Torres","Nemanja Vidić","Kelly Smith","Alessandro Del Piero","Iker Casillas","Lev Yashin","Didier Drogba","Wayne Rooney","Laurent Blanc","Marcel Desailly","Claude Makélélé","Luís Figo","Dennis Bergkamp","Gianfranco Zola","Sócrates","Michael Essien","Ian Wright","Emmanuel Petit","Henrik Larsson","Ashley Cole","Petr Čech","Carles Puyol","Fabio Cannavaro","Gianluca Zambrotta","Clarence Seedorf","David Beckham","Xabi Alonso","Peter Schmeichel","Pavel Nedvěd","Frank Rijkaard","Gary Lineker","Ronald Koeman","Sol Campbell","Hugo Sánchez","Xavi","Bastian Schweinsteiger","Andrea Pirlo","Michael Ballack","Miroslav Klose","Bobby Moore","Edwin van der Sar","Roy Keane","Ian Rush","Fernando Hierro","Hernán Crespo","David Trezeguet","Alan Shearer","Davor Šuker","Jari Litmanen","Patrick Kluivert","John Barnes","Luis Hernández","Frank Lampard","Steven Gerrard","Robert Pirès","Juan Sebastián Verón","Michael Owen","Andriy Shevchenko","Raúl","Gennaro Gattuso","Alessandro Nesta","Hristo Stoichkov","Franco Baresi","Paul Scholes","Buffon","Garrincha","Zico","Cafu","Bebeto","Romário","Rivellino","Didi","Nilton Santos","Falcao","Careca","Taffarel","Vavá","Müller"];
+
+const finalDeck = new Array(144).fill(null);
+const highlights = [
+    { name: "Pelé", pos: [2, 103, 124] },
+    { name: "Ronaldo", pos: [1, 104, 125] },
+    { name: "Ronaldinho", pos: [3, 105, 126] },
+    { name: "Garrincha", pos: [92, 106, 127] },
+    { name: "Buffon", pos: [93, 107, 128] }
+];
+
+highlights.forEach(h => { h.pos.forEach(p => { if(p <= 144) finalDeck[p-1] = h.name; }); });
+
+let rawIdx = 0;
+for(let i=0; i<144; i++) {
+    if(finalDeck[i] === null) {
+        while(rawIdx < rawList.length && highlights.some(h => h.name === rawList[rawIdx])) { rawIdx++; }
+        finalDeck[i] = rawList[rawIdx] || "Footballer";
+        rawIdx++;
+    }
+}
+
+const icons = finalDeck.map((name, index) => {
+    const idNum = (index + 1).toString().padStart(3, '0');
+    let category = 'base';
+    if (index + 1 >= 92 && index + 1 <= 102) category = 'greats';
+    else if (index + 1 >= 103 && index + 1 <= 123) category = 'immortals';
+    else if (index + 1 >= 124) category = 'futties';
+
+    return {
+        id: idNum,
+        name: name,
+        cat: category,
+        // Monta a URL RAW do GitHub automaticamente
+        img: `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${IMAGE_PATH}/${idNum}.jpg`
+    };
+});
+
+let currentCat = 'all';
+
+function render(list){
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    list.forEach(item => {
+        const div = document.createElement('div');
+        div.className = `card ${item.cat}`;
+        div.innerHTML = `
+            <div class="card-number">${item.id}</div>
+            <img src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/200x250/12151c/c9a227?text=FOTO+OFFLINE'">
+            <div class="card-name">${item.name}</div>
+        `;
+        grid.appendChild(div);
+    });
+}
+
+function filterCards() {
+    const term = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = icons.filter(i => {
+        const matchText = i.name.toLowerCase().includes(term) || i.id.includes(term);
+        const matchCat = currentCat === 'all' || i.cat === currentCat;
+        return matchText && matchCat;
+    });
+    render(filtered);
+}
+
+function setCat(cat, btn) {
+    currentCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterCards();
+}
+
+render(icons);
+</script>
+</body>
+</html>
